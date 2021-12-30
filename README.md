@@ -6,11 +6,11 @@ I'm a Cloud Automation Team Lead that's trying to get more experience working wi
 
 # Provisioning a Kubernetes cluster on Digital Ocean ##
 In Digital Ocean console, create a new project. I have named mine k8-challenge.
-![Screenshot](./do-create-new-project.PNG)
+![ScreenShot](./do-create-new-project.PNG)
 
 Now it is time to create a cluster. 
 
-![Screenshot](do-create-k8s-cluster.PNG)
+![ScreenShot](do-create-k8s-cluster.PNG)
 
 I left the Kubernetes version at its default (1.21.5-do.0 at the time of this writing).
 
@@ -22,11 +22,11 @@ I made a couple adjustments to cluster capacity, as this is a learning exercise 
 1. Node plan: $20/month plan (2.5 GB RAM, 2 vCPU per node)
 2. 3 node total
 
-![Screenshot](do-cluster-capacity.PNG)
+![ScreenShot](do-cluster-capacity.PNG)
 
 Finalize with naming your cluster and adding tags, and selecting the project you want your cluster to be part of.  I left the default name, but I did add the tag cicd.
 
-![Screenshot](do-finalize.PNG)
+![ScreenShot](do-finalize.PNG)
 
 After clicking finalize, scroll down a bit to the overview. Continue to the 'Connecting to Kubernetes section.'  
 
@@ -34,30 +34,30 @@ I just want to draw attanetion to the 'Manual' tab for instuctions to test your 
 
 You can follow the instruction on this tab if you want to, but we are going to do all of this in later steps. Click Continue.
 
-![Screenshot](do-connecting-1.PNG)
+![ScreenShot](do-connecting-1.PNG)
 
-![Screenshot](do-connecting-2.PNG)
+![ScreenShot](do-connecting-2.PNG)
 
 
 Do whatever you want with the Patch & minor upgrades. I checked the box and left the default upgrade window. Click Continue. 
 
-![Screenshot](do-getting-started-patch.PNG)
+![ScreenShot](do-getting-started-patch.PNG)
 
 Don't install any apps for this tutorial. Click Continue.
 
-![Screenshot](do-getting-started-apps.PNG)
+![ScreenShot](do-getting-started-apps.PNG)
 
 Don't install any apps for this tutorial. Click Continue.
 
-![Screenshot](do-getting-started-apps.PNG)
+![ScreenShot](do-getting-started-apps.PNG)
 
 Great your done! Click the big blue button.
 
-![Screenshot](do-getting-started-next-steps.PNG)
+![ScreenShot](do-getting-started-next-steps.PNG)
 
 Now we are going to download the config file.
 
-![Screenshot](do-download-config.PNG)
+![ScreenShot](do-download-config.PNG)
 
 # Installing kubectl, helm, & k9s
 This tutorial only supports WSL.  If you are on a mac or linux box, this will all be easier and there are plenty of tutorials out there, but I am on a Windows machine.
@@ -72,9 +72,9 @@ I chose to use WSL since my work laptop is Windows.
     curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
     echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
 ```    
-![Screenshot](wsl-step-1.PNG)
+![ScreenShot](wsl-step-1.PNG)
 
-![Screenshot](wsl-step-2.PNG)
+![ScreenShot](wsl-step-2.PNG)
 
     sudo chmod +x kubectl
     mkdir -p ~/.local/bin/kubectl
@@ -82,7 +82,7 @@ I chose to use WSL since my work laptop is Windows.
     mv ./kubectl ~/.local/bin/kubectl
     
     kubectl version --client
-![Screenshot](wsl-step-4.PNG)
+![ScreenShot](wsl-step-4.PNG)
 
 ### Install helm
 ```
@@ -90,14 +90,14 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 ```
-I already had Helm installed so my screenshots won't be so helpful.
+I already had Helm installed so my ScreenShots won't be so helpful.
 
 ### Install k9s
 ```
 curl -sS https://webinstall.dev/k9s | bash
 
 ```
-![Screenshot](wsl-step-8.PNG)
+![ScreenShot](wsl-step-8.PNG)
 
 # Connecting to you cluster 
 
@@ -109,7 +109,7 @@ While using WSL, we will enter that directory. Of course your username and the n
 
     kubectl --kubeconfig="k8s-1-21-5-do-0-sfo3-1640635833119-kubeconfig.yml" get nodes
 
-![Screenshot](wsl-step-6.PNG)
+![ScreenShot](wsl-step-6.PNG)
 
 Since I only have this one cluster, I will just copy the configuration file in the earlier step into the  ~/.kube directory. 
     cd ~
@@ -119,12 +119,12 @@ And make sure that kubectl is using your configuration.
 
     kubectl get nodes
 
-![Screenshot](wsl-step-7.PNG)
+![ScreenShot](wsl-step-7.PNG)
 
 # Get a Domain
 It doesn't matter what service you use.  I used AWS.  A .link domain is only 5.00. I will not be going through all the steps to register a domain with AWS. Just make sure you provide a valid email address.  You will need this email address later in the tutorial.
 
-![Screenshot](aws-register-domain-1.PNG)
+![ScreenShot](aws-register-domain-1.PNG)
 
 # Installing Ambassador, ArgoCD and Tekton on Kubernetes
 
@@ -140,55 +140,55 @@ kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml && kubectl wait
 
 ```
 You want the last few lines to look like this:
-![Screenshot](ambassador-step-1.PNG)
+![ScreenShot](ambassador-step-1.PNG)
 
 I have changed the next step a bit from the tutorial, so that you echo out the actual ip address: 
 
     AMBASSADOR_IP=$(kubectl get -n ambassador service ambassador -o "go-template={{range .status.loadBalancer.ingress}}{{or .ip .hostname}}{{end}}") && echo $AMBASSADOR_IP
 
-![Screenshot](ambassador-step-2.png)
+![ScreenShot](ambassador-step-2.png)
 
-Use that ip address in your browser to see the fancy penguin. (Remember! The ip in the screenshots is from my cluster, yours will be different )
+Use that ip address in your browser to see the fancy penguin. (Remember! The ip in the ScreenShots is from my cluster, yours will be different )
 
-![Screenshot](ambassador-step-3.png)
-![Screenshot](ambassador-step-4.png)
+![ScreenShot](ambassador-step-3.png)
+![ScreenShot](ambassador-step-4.png)
 
 ### 2- Install Cert-Manager v1.0.0
 
 ```
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.0.0/cert-manager.crds.yaml
 ```
-![Screenshot](ambassador-step-5.png)
+![ScreenShot](ambassador-step-5.png)
 
 ```
 helm repo add jetstack https://charts.jetstack.io && helm repo update
 ```
-![Screenshot](ambassador-step-6.png)
+![ScreenShot](ambassador-step-6.png)
 
 ```
 kubectl create ns cert-manager
 ```
-![Screenshot](ambassador-step-7.png)
+![ScreenShot](ambassador-step-7.png)
 
 ```
 helm install cert-manager --namespace cert-manager jetstack/cert-manager
 ```
-![Screenshot](ambassador-step-8.png)
+![ScreenShot](ambassador-step-8.png)
 
 ### 3 - Get the public IP address your ingress controller
 ```
 IP=$(kubectl get -n ambassador service ambassador -o "go-template={{range .status.loadBalancer.ingress}}{{or .ip .hostname}}{{end}}")
 echo $IP
 ```
-![Screenshot](ambassador-step-9.png)
+![ScreenShot](ambassador-step-9.png)
 
 ### 4 - Add the public ingress controller ip to the AWS A record.
 
-![Screenshot](aws-dns-1.png)
-![Screenshot](aws-dns-2.png)
+![ScreenShot](aws-dns-1.png)
+![ScreenShot](aws-dns-2.png)
 
 ### 4 - See if it works!
-![Screenshot](aws-dns-3.png)
+![ScreenShot](aws-dns-3.png)
 
 ### 5 - Configure TLS on Ambassador
 This is the time where I like to begin working in a worskpace directory, so I can nuke everything when I'm done.  
@@ -287,13 +287,13 @@ save the file and run:
 kubectl apply -f ambassador-tls-cert-issuer.yml
 
 ```
-![Screenshot](ambassador-step-10.png)
+![ScreenShot](ambassador-step-10.png)
 Make sure everything is good:
 ```
 kubectl get pods -n cert-manager
 ```
 
-![Screenshot](ambassador-step-11.png)
+![ScreenShot](ambassador-step-11.png)
 
 Check the certificate:
 ```
@@ -301,13 +301,13 @@ kubectl describe certificates ambassador-certs -n ambassador
 
 ```
 Hopefully you will see this.  If you don't, there is a problem with your regiesterd domain.  Best of luck!
-![Screenshot](ambassador-step-12.png)
+![ScreenShot](ambassador-step-12.png)
 
 Next, check to make sure that your secrets have been created:
 ```
 kubectl get secrets -n ambassador
 ```
-![Screenshot](ambassador-step-13.png)
+![ScreenShot](ambassador-step-13.png)
 
 Now download the service and loadbalance yaml:
 ```
@@ -316,10 +316,10 @@ Now download the service and loadbalance yaml:
 Now to get the lock, you will have to edit this above what the tutorial suggests, so that there is no http traffic at all, by removing lines 22-25.
 
 From this:
-![Screenshot](ambassador-step-14.png)
+![ScreenShot](ambassador-step-14.png)
 
 To This:
-![Screenshot](ambassador-step-15.png)
+![ScreenShot](ambassador-step-15.png)
 
 Now apply the file:
 ```
@@ -327,7 +327,7 @@ kubectl apply -f ambassador-tls-ambassador-service.yml
 
 ```
 And hopefully you see this beautiful thing:
-![Screenshot](ambassador-step-16.png)
+![ScreenShot](ambassador-step-16.png)
 
 ## Install ArgoCD v1.7.6
 
@@ -336,7 +336,7 @@ Run this one-liner block:
 ```
 kubectl create namespace argocd && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v1.7.6/manifests/install.yaml
 ```
-![Screenshot](argocd-step-1.png)
+![ScreenShot](argocd-step-1.png)
 
 ### 2 - Expose ArgoCD with Ambassador
 
@@ -348,11 +348,11 @@ And Apply it (no edits necessary):
 ```
 kubectl apply -f argocd-ambassador.yml
 ```
-![Screenshot](argocd-step-2.png)
+![ScreenShot](argocd-step-2.png)
 
 In your browser go to your https:<your-domain.whatever>/argo-cd, and you should see this lovely octopus:
 
-![Screenshot](argocd-step-3.png)
+![ScreenShot](argocd-step-3.png)
 
 ### 3 - Install the ArgoCD CLI
 I did not find the instructions helpful on the argo-cd website.  Try these:
@@ -368,14 +368,14 @@ Validate it by running:
 ```
 argocd version
 ```
-![Screenshot](argocd-step-4.png)
+![ScreenShot](argocd-step-4.png)
 
 ### 4 - change the admin password, and login to ArgoCD
 
 Go Here:
 https://bcrypt-generator.com/ and enter your password and click encrypt.  Copy the output.
 
-![Screenshot](argocd-step-5.png)
+![ScreenShot](argocd-step-5.png)
 
 Copy the string into the value for "admin.password" as shown here:
 ```
@@ -386,7 +386,7 @@ kubectl -n argocd patch secret argocd-secret \
   }}'
 ```
 And patch the password by running the command:
-![Screenshot](argocd-step-6.png)
+![ScreenShot](argocd-step-6.png)
 
 Now login using the PLAINTEXT passwor (replace the url with your domain):
 ```
@@ -394,7 +394,7 @@ argocd login mymissing.link --grpc-web-root-path /argo-cd
 ```
 
 As you saw earlier my plaintext password was "password", your is likely different:
-![Screenshot](argocd-step-6.png)
+![ScreenShot](argocd-step-6.png)
 
 ## Install Tekton v0.16.0 and Tekton Triggers v0.8.1
 
@@ -414,7 +414,7 @@ kubectl create configmap config-artifact-pvc \
 --dry-run=true | kubectl replace -f -
 ```
 You will see a deprecation warning. That's okay.
-![Screenshot](argocd-step-6.png)
+![ScreenShot](argocd-step-6.png)
 
 ## YOU DID IT.  
 **Standup and Stretch and Move Around!**
@@ -447,15 +447,15 @@ git clone https://github.com/<username>/tekton-pipeline-example-pipeline.git
 The Webhook URL look something like this:
 https://\<cluster_url\>/tekton-argocd-example-build-mapping/
 
-![Screenshot](github-step-4.png)
+![ScreenShot](github-step-4.png)
 
 Make sure that you change the 'Content type' to application/json and click the radio button to Enable SSL verification.
 
-![Screenshot](github-step-5.png)
+![ScreenShot](github-step-5.png)
 
 If you forget to enter 'https' or have some problem, you can click on Recent Deliveries.  Make sure you have a sucessful delivery.
 
-![Screenshot](github-step-6.png)
+![ScreenShot](github-step-6.png)
 
 ## Setup ArgoCD to interact with github and dockerhub
 
@@ -478,14 +478,14 @@ c) git_app_secrets.env
 You’ll need to generate a personal access token (PAT). This tutorial is using github.
 Go to settings by clicking on the arrow next to your user icon in the top right.
 
-![Screenshot](github-step-1.png)]
+![ScreenShot](github-step-1.png)]
 
 
 Click on Developer Settings
-![Screenshot](github-step-2.png)]
+![ScreenShot](github-step-2.png)]
 
 Generate a new Personal Access Token.
-![Screenshot](github-step-3.png)
+![ScreenShot](github-step-3.png)
 
 Once you’ve generated the PAT, enter them in the git_app_secrets.env file:
 ```
@@ -497,21 +497,21 @@ password=as;dlfkj_qoi34-987asdfijasdlkfjkjhasdf
 ### 2- Update ArgoCD Task ConfigMaps
 
 update line 7 of file argocd-task-cm.yml from the tekton-pipeline-example-pipeline repo to include your server.  Do not include 'http' or 'https'. See what I've done:
-![Screenshot](pipeline-step-1.png)
+![ScreenShot](pipeline-step-1.png)
 
 ### 3- Update resource URLs
 This one really hung me up.  In secrets.yml of the tekton-pipeline-example-pipeline repo, replace the git docker registry information. Pay attention to the syntax for what I've done specifically for github and docker.
 
-![Screenshot](pipeline-step-2.png)
+![ScreenShot](pipeline-step-2.png)
 
-![Screenshot](pipeline-step-3.png)
+![ScreenShot](pipeline-step-3.png)
 
 ### 4- Update Triggers
 Replace <json_resource_repo_url_path> with the path to the JSON resource pointing to your Git repo URL. 
-![Screenshot](pipeline-step-4.png)
+![ScreenShot](pipeline-step-4.png)
 
 Replace <docker_registry_name> with your Docker registry’s name
-![Screenshot](pipeline-step-5.png)
+![ScreenShot](pipeline-step-5.png)
 
 ## Create the Pipeline
 
@@ -522,7 +522,7 @@ Before running the following command, make sure your present working directory i
 kubectl apply -k tekton-pipeline/resources/.
 
 ```
-![Screenshot](pipeline-step-6.png)
+![ScreenShot](pipeline-step-6.png)
 
 ### 3- Register the two repos with ArgoCD
 Run these commands, replacing your username and password token for github:
@@ -530,7 +530,7 @@ Run these commands, replacing your username and password token for github:
 export SCM_USERNAME=<git_repo_username>
 export SCM_PAT=<git_repo_personal_access_token>
 ```
-![Screenshot](pipeline-step-7.png)
+![ScreenShot](pipeline-step-7.png)
 
 Remember to change the repo to your repo, and run this command:
 ```
@@ -538,17 +538,17 @@ argocd repo add https://github.com/jelockro/tekton-pipeline-example-pipeline --u
 
 argocd repo add https://github.com/jelockro/tekton-pipeline-example-app --username $SCM_USERNAME --password $SCM_PAT
 ```
-![Screenshot](pipeline-step-8.png)
+![ScreenShot](pipeline-step-8.png)
 
 If successful you should see this when clicking on the gears on the left and then clicking 'Repositories':
-![Screenshot](pipeline-step-9.png)
+![ScreenShot](pipeline-step-9.png)
 
 ### 4- Create the ArgoCD pipeline Application
 change your repor below, but keept the --dest-server and --dest-namespace the same.
 ```
 argocd app create tekton-pipeline-app --repo https://github.com/jelockro/tekton-pipeline-example-pipeline --path tekton-pipeline --dest-server https://kubernetes.default.svc --dest-namespace tekton-argocd-example
 ```
-![Screenshot](pipeline-step-10.png)
+![ScreenShot](pipeline-step-10.png)
 
 ### 5- Create the ArgoCD app for the 2048 game
 
@@ -556,8 +556,8 @@ argocd app create tekton-pipeline-app --repo https://github.com/jelockro/tekton-
 argocd app create 2048-game-app --repo https://github.com/jelockro/tekton-pipeline-example-app --path kustomize --dest-server https://kubernetes.default.svc --dest-namespace game-2048 --sync-option CreateNamespace=true
 
 ```
-![Screenshot](pipeline-step-11.png)
-![Screenshot](pipeline-step-12.png)
+![ScreenShot](pipeline-step-11.png)
+![ScreenShot](pipeline-step-12.png)
 
 ## 6- Sync (deploy) the Tekton pipeline
 
@@ -567,18 +567,18 @@ Now it's time to run k9's in a separate terminal.
 k9s
 ```
 
-![Screenshot](pipeline-step-13.png)
+![ScreenShot](pipeline-step-13.png)
 
 ```
 argocd app sync tekton-pipeline-app --prune
 ```
-![Screenshot](pipeline-step-14.png)
+![ScreenShot](pipeline-step-14.png)
 
 ## 8- Make a change to your app repo, and let ‘er rip!
 
 update depolyment.yml which is in the kustomize directory so that it point to your docker registry. Like so: 
 
-![Screenshot](pipeline-step-15.png)
+![ScreenShot](pipeline-step-15.png)
 
 Now, let's see what happens when we commit by watching k9s. Also, I use this one-liner to commit and push to save time
 ```
