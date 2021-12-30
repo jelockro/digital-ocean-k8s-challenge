@@ -6,11 +6,11 @@ I'm a Cloud Automation Team Lead that's trying to get more experience working wi
 
 # Provisioning a Kubernetes cluster on Digital Ocean ##
 In Digital Ocean console, create a new project. I have named mine k8-challenge.
-![ScreenShot](screenshots/do-create-new-project.PNG)
+![ScreenShot](screenshots/do-create-new-project.png)
 
 Now it is time to create a cluster. 
 
-![ScreenShot](screenshots/do-create-k8s-cluster.PNG)
+![ScreenShot](screenshots/do-create-k8s-cluster.png)
 
 I left the Kubernetes version at its default (1.21.5-do.0 at the time of this writing).
 
@@ -22,11 +22,11 @@ I made a couple adjustments to cluster capacity, as this is a learning exercise 
 1. Node plan: $20/month plan (2.5 GB RAM, 2 vCPU per node)
 2. 3 node total
 
-![ScreenShot](screenshots/do-cluster-capacity.PNG)
+![ScreenShot](screenshots/do-cluster-capacity.png)
 
 Finalize with naming your cluster and adding tags, and selecting the project you want your cluster to be part of.  I left the default name, but I did add the tag cicd.
 
-![ScreenShot](screenshots/do-finalize.PNG)
+![ScreenShot](screenshots/do-finalize.png)
 
 After clicking finalize, scroll down a bit to the overview. Continue to the 'Connecting to Kubernetes section.'  
 
@@ -34,30 +34,30 @@ I just want to draw attanetion to the 'Manual' tab for instuctions to test your 
 
 You can follow the instruction on this tab if you want to, but we are going to do all of this in later steps. Click Continue.
 
-![ScreenShot](screenshots/do-connecting-1.PNG)
+![ScreenShot](screenshots/do-connecting-1.png)
 
-![ScreenShot](screenshots/do-connecting-2.PNG)
+![ScreenShot](screenshots/do-connecting-2.png)
 
 
 Do whatever you want with the Patch & minor upgrades. I checked the box and left the default upgrade window. Click Continue. 
 
-![ScreenShot](screenshots/do-getting-started-patch.PNG)
+![ScreenShot](screenshots/do-getting-started-patch.png)
 
 Don't install any apps for this tutorial. Click Continue.
 
-![ScreenShot](screenshots/do-getting-started-apps.PNG)
+![ScreenShot](screenshots/do-getting-started-apps.png)
 
 Don't install any apps for this tutorial. Click Continue.
 
-![ScreenShot](screenshots/do-getting-started-apps.PNG)
+![ScreenShot](screenshots/do-getting-started-apps.png)
 
 Great your done! Click the big blue button.
 
-![ScreenShot](screenshots/do-getting-started-next-steps.PNG)
+![ScreenShot](screenshots/do-getting-started-next-steps.png)
 
 Now we are going to download the config file.
 
-![ScreenShot](screenshots/do-download-config.PNG)
+![ScreenShot](screenshots/do-download-config.png)
 
 # Installing kubectl, helm, & k9s
 This tutorial only supports WSL.  If you are on a mac or linux box, this will all be easier and there are plenty of tutorials out there, but I am on a Windows machine.
@@ -72,9 +72,9 @@ I chose to use WSL since my work laptop is Windows.
     curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
     echo "$(<kubectl.sha256)  kubectl" | sha256sum --check
 ```    
-![ScreenShot](screenshots/wsl-step-1.PNG)
+![ScreenShot](screenshots/wsl-step-1.png)
 
-![ScreenShot](screenshots/wsl-step-2.PNG)
+![ScreenShot](screenshots/wsl-step-2.png)
 
     sudo chmod +x kubectl
     mkdir -p ~/.local/bin/kubectl
@@ -82,7 +82,7 @@ I chose to use WSL since my work laptop is Windows.
     mv ./kubectl ~/.local/bin/kubectl
     
     kubectl version --client
-![ScreenShot](screenshots/wsl-step-4.PNG)
+![ScreenShot](screenshots/wsl-step-4.png)
 
 ### Install helm
 ```
@@ -97,7 +97,7 @@ I already had Helm installed so my ScreenShots won't be so helpful.
 curl -sS https://webinstall.dev/k9s | bash
 
 ```
-![ScreenShot](screenshots/wsl-step-8.PNG)
+![ScreenShot](screenshots/wsl-step-8.png)
 
 # Connecting to you cluster 
 
@@ -109,7 +109,7 @@ While using WSL, we will enter that directory. Of course your username and the n
 
     kubectl --kubeconfig="k8s-1-21-5-do-0-sfo3-1640635833119-kubeconfig.yml" get nodes
 
-![ScreenShot](screenshots/wsl-step-6.PNG)
+![ScreenShot](screenshots/wsl-step-6.png)
 
 Since I only have this one cluster, I will just copy the configuration file in the earlier step into the  ~/.kube directory. 
     cd ~
@@ -119,12 +119,12 @@ And make sure that kubectl is using your configuration.
 
     kubectl get nodes
 
-![ScreenShot](screenshots/wsl-step-7.PNG)
+![ScreenShot](screenshots/wsl-step-7.png)
 
 # Get a Domain
 It doesn't matter what service you use.  I used AWS.  A .link domain is only 5.00. I will not be going through all the steps to register a domain with AWS. Just make sure you provide a valid email address.  You will need this email address later in the tutorial.
 
-![ScreenShot](screenshots/aws-register-domain-1.PNG)
+![ScreenShot](screenshots/aws-register-domain-1.png)
 
 # Installing Ambassador, ArgoCD and Tekton on Kubernetes
 
@@ -140,7 +140,7 @@ kubectl apply -f https://www.getambassador.io/yaml/aes-crds.yaml && kubectl wait
 
 ```
 You want the last few lines to look like this:
-![ScreenShot](screenshots/ambassador-step-1.PNG)
+![ScreenShot](screenshots/ambassador-step-1.png)
 
 I have changed the next step a bit from the tutorial, so that you echo out the actual ip address: 
 
