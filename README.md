@@ -1,4 +1,4 @@
-# 2021-DigitalOcean-K8s-Challenge: Project: Deploy an internal container registry on Kubernetes ##
+# 2021-DigitalOcean-K8s-Challenge: Project: Native Build & Release Pipelines with Tekton and ArgoCD
 
 ## About me ##
 I'm a Cloud Automation Team Lead that's trying to get more experience working with Kubernetes clusters and CI/CD.  
