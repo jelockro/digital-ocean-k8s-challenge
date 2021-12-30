@@ -6,7 +6,7 @@ I'm a Cloud Automation Team Lead that's trying to get more experience working wi
 
 # Provisioning a Kubernetes cluster on Digital Ocean ##
 In Digital Ocean console, create a new project. I have named mine k8-challenge.
-![Screenshot](do-create-new-project.PNG)
+![Screenshot](./do-create-new-project.PNG)
 
 Now it is time to create a cluster. 
 
