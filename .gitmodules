@@ -1,0 +1,6 @@
+[submodule "teketon-pipeline-example-pipeline"]
+	path = teketon-pipeline-example-pipeline
+	url = https://github.com/jelockro/tekton-pipeline-example-pipeline.git
+[submodule "tekton-pipeline-example-app"]
+	path = tekton-pipeline-example-app
+	url = https://github.com/jelockro/tekton-pipeline-example-app.git
