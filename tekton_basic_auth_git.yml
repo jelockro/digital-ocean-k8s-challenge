@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: basic-git-app-repo-user-pass
+  annotations:
+    # Replace <git_repo_url> with your git repo URL (e.g. https://github.com/d0-labs/tekton-pipeline-example-app)
+    tekton.dev/git-0: https://github.com/jelockro/tekton-pipeline-example-app
+type: kubernetes.io/basic-auth
+stringData:
+  username: <username>
+  password: <password>

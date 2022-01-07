@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: basic-docker-user-pass
+  annotations:
+    # Replace <docker_registry_url> with your docker registry URL (e.g. https://my-acr.azurecr.io)
+    tekton.dev/docker-0: https://hub.docker.com/repository/docker/jelockro/jelkubeapp
+type: kubernetes.io/basic-auth
+stringData:
+  username: <username>
+  password: <password>
